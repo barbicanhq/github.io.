@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>Barbican: Global Korean Product Distribution</title>
+    <style>
+        body {
+            font-family: 'sans-serif';
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #eee;
+            margin-bottom: 0;
+        }
+
+        main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 80px;
+            padding: 0 10px;
+        }
+
+        section h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        section p {
+            font-size: 1.15rem;
+            color: #ddd;
+            line-height: 1.9;
+        }
+
+        #hero {
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 0;
+        }
+
+        #hero h2 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            color: #eee;
+            margin-bottom: 40px;
+        }
+
+        #hero button {
+            background-color: #fff;
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        #hero button:hover {
+            background-color: #eee;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            padding: 0;
+            border-radius: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .product-card p {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        footer {
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid #333;
+        }
+
+        .contact-form {
+            padding: 0;
+            margin-top: 40px;
+        }
+
+        .contact-form h3{
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: left;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s ease;
+            background-color: #222;
+            color: #fff;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #fff;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .contact-form button {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+            font-weight: 600;
+        }
+
+        .contact-form button:hover {
+            background-color: #eee;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+        }
+
+        .language-toggle button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .language-toggle button:hover {
+            background-color: #333;
+        }
+
+        .language-toggle button.active {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .en{
+          display: block;
+        }
+
+        .kr{
+          display: none;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+            #hero h2 {
+                font-size: 3rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="language-toggle">
+            <button onclick="setLanguage('en')" class="lang-button active" id="lang-en-button">EN</button>
+            <button onclick="setLanguage('kr')" class="lang-button" id="lang-kr-button">KR</button>
+        </div>
+        <header>
+            <a href="/" aria-label="Go to homepage">
+                <img src="images/WHITE_(1)" alt="Barbican Logo" height="50">
+            </a>
+            <p class="en">Your Gateway to Premium Korean Products</p>
+            <p class="kr">최고급 한국 제품으로 향하는 관문</p>
+        </header>
+
+        <main>
+            <section id="hero">
+                <h2 class="en">Connecting Global Markets to Korea's Finest</h2>
+                <h2 class="kr">글로벌 시장과 한국 최고의 제품을 연결합니다</h2>
+                <p class="en">We distribute exceptional Korean products, showcasing innovation and craftsmanship.</p>
+                <p class="kr">우리는 혁신과 장인 정신을 선보이는 특별한 한국 제품을 유통합니다.</p>
+            </section>
+
+            <section id="about-us">
+                <h2 class="en">Our Mission</h2>
+                <h2 class="kr">우리의 미션</h2>
+                <p class="en">
+                    We empower global businesses and consumers to access premium, niche Korean products. By partnering with top Korean manufacturers, we deliver quality and innovation to the international stage.
+                </p>
+                <p class="kr">
+                    우리는 전 세계 기업과 소비자가 프리미엄 틈새 한국 제품을 이용할 수 있도록 지원합니다. 최고의 한국 제조업체와 협력하여 품질과 혁신을 국제 무대에 제공합니다.
+                </p>
+            </section>
+
+            <section id="products">
+                <h2 class="en">Product Categories</h2>
+                <h2 class="kr">제품 카테고리</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <h3 class="en">Korean Cosmetics</h3>
+                        <h3 class="kr">한국 화장품</h3>
+                        <p class="en">
+                            Image: [Cosmetics Image]<br>
+                            Sourced from exclusive partnerships with Korean beauty innovators, our curated selection reflects the pinnacle of K-beauty trends and research.  We bring you skincare and makeup that redefine global standards.
+                        </p>
+                        <p class="kr">
+                            이미지: [화장품 이미지]<br>
+                            엄선된 저희 제품은 한국 뷰티 혁신 기업과의 독점적인 파트너십을 통해 얻은 것으로, K-뷰티 트렌드와 연구의 정점을 반영합니다. 우리는 글로벌 기준을 재정의하는 스킨케어 및 메이크업을 제공합니다.
+                        </p>
+                    </div>
+                    <div class="product-card">
+                        <h3 class="en">Innovative Tech</h3>
+                        <h3 class="kr">혁신 기술</h3>
+                        <p class="en">
+                            Image: [Tech Image]<br>
+                            Collaborating with Korea's leading tech pioneers, we present cutting-edge gadgets and devices that showcase the nation's technological prowess.  Experience the future of innovation, today.
+                        </p>
+                        <p class="kr">
+                            이미지: [기술 이미지]<br>
+                            한국 최고의 기술 선구자들과 협력하여 대한민국의 기술력을 보여주는 최첨단 장치와 기기를 선보입니다. 혁신의 미래를 오늘 경험하십시오.
+                        </p>
+                    </div>
+                    <div class="product-card">
+                        <h3 class="en">Gourmet Food</h3>
+                        <h3 class="kr">고급 식품</h3>
+                        <p class="en">
+                            Image: [Food Image]<br>
+                            We partner with artisans and culinary experts across Korea to deliver a symphony of flavors to your table.  Discover exceptional Korean culinary experiences, from traditional delicacies to modern gastronomic creations.
+                        </p>
+                        <p class="kr">
+                            이미지: [음식 이미지]<br>
+                            우리는 한국 전역의 장인 및 요리 전문가와 협력하여 식탁에 풍성한 풍미를 전달합니다. 전통적인 진미부터 현대적인 요리 창작물까지, 특별한 한국 요리 경험을 발견하십시오.
+                        </p>
+                    </div>
+                    <div class="product-card">
+                        <h3 class="en">Pet Products</h3>
+                        <h3 class="kr">애완 동물 용품</h3>
+                        <p class="en">
+                            Image: [Pet Product Image]<br>
+                            Understanding the unique bond between humans and their pets, we source premium, innovative products that cater to the well-being and happiness of your beloved companions.  Elevate your pet's lifestyle with our exclusive range.
+                        </p>
+                        <p class="kr">
+                            이미지: [애완 동물 용품 이미지]<br>
+                            인간과 애완 동물 사이의 독특한 유대감을 이해하고, 사랑하는 동물의 행복과 웰빙을 충족시키는 프리미엄 혁신 제품을 공급합니다. 독점적인 제품으로 애완 동물의 라이프스타일을 향상시키십시오.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h2 class="en">Contact Us</h2>
+                <h2 class="kr">문의하기</h2>
+                <p class="en">
+                    For inquiries, please reach out. Our team will get back to you as soon as possible.
+                </p>
+                <p class="kr">
+                    문의 사항은 다음 연락처로 문의하십시오. 저희 팀이 최대한 빨리 연락드리겠습니다.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p class="en">Address: 1408, 738 Yeongdong-daero, Gangnam-gu, Seoul</p>
+            <p class="kr">주소: 서울시 강남구 영동대로 738 1408호</p>
+            <p>Email: info@barbicanhq.com</p>
+            &copy; 2025 Barbican. All rights reserved.
+        </footer>
+    </div>
+    <script>
+        function setLanguage(lang) {
+            const enElements = document.querySelectorAll('.en');
+            const krElements = document.querySelectorAll('.kr');
+            const enButton = document.getElementById('lang-en-button');
+            const krButton = document.getElementById('lang-kr-button');
+            const langButtons = document.querySelectorAll('.lang-button');
+
+            langButtons.forEach(button => button.classList.remove('active'));
+
+            if (lang === 'en') {
+                enElements.forEach(el => el.style.display = 'block');
+                krElements.forEach(el => el.style.display = 'none');
+                enButton.classList.add('active');
+            } else if (lang === 'kr') {
+                enElements.forEach(el => el.style.display = 'none');
+                krElements.forEach(el => el.style.display = 'block');
+                krButton.classList.add('active');
+            }
+        }
+
+        setLanguage('en');
+    </script>
+</body>
+</html>
